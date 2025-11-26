@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>명지은행 메인</title>
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; }
+        .container { width: 900px; margin: 50px auto; text-align: center; }
+
+        h1 { color: #2c3e50; margin-bottom: 40px; font-size: 2.5em; }
+
+        /* 그리드 레이아웃 */
+        .dashboard { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+        /* 카드 박스 스타일 */
+        .card-box { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: left; }
+        .card-box h2 { margin-top: 0; color: #34495e; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px; font-size: 1.4em; }
+
+        /* 버튼 공통 스타일 */
+        .btn { display: block; width: 100%; padding: 12px; margin-bottom: 10px; text-decoration: none; color: white; border-radius: 6px; text-align: center; font-weight: bold; transition: opacity 0.3s; box-sizing: border-box; }
+        .btn:hover { opacity: 0.8; }
+
+        /* 색상 테마 */
+        .btn-customer { background-color: #3498db; } /* 파랑 */
+        .btn-account { background-color: #2ecc71; }  /* 초록 */
+        .btn-transaction { background-color: #e67e22; } /* 주황 */
+        .btn-card { background-color: #9b59b6; }     /* 보라 */
+        .btn-admin { background-color: #95a5a6; }    /* 회색 */
+
+        .footer { margin-top: 50px; color: #7f8c8d; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏦 MjuBank 명지은행 시스템</h1>
+
+    <div class="dashboard">
+
+        <div class="card-box">
+            <h2>👥 고객 서비스</h2>
+            <a href="/customers/new" class="btn btn-customer">➕ 신규 고객 등록</a>
+            <a href="/customers" class="btn btn-customer">📋 고객 목록 조회</a>
+        </div>
+
+        <div class="card-box">
+            <h2>💰 계좌 서비스</h2>
+            <a href="/accounts/new" class="btn btn-account">🆕 신규 계좌 개설</a>
+            <a href="/accounts" class="btn btn-account">📑 전체 계좌 목록</a>
+            <a href="/accounts/search" class="btn btn-account">🔍 계좌 검색 및 정렬 (개설일/잔액)</a>
+        </div>
+
+        <div class="card-box">
+            <h2>💸 입출금 거래</h2>
+            <a href="/transactions/new" class="btn btn-transaction">🏧 입금 / 출금 실행</a>
+            <p style="color: #7f8c8d; font-size: 0.9em; text-align: center;">
+            </p>
+        </div>
+
+        <div class="card-box">
+            <h2>💳 카드 서비스</h2>
+            <a href="/cards/new" class="btn btn-card">➕ 신규 카드 발급</a>
+            <a href="/cards" class="btn btn-card">📑 카드 목록 및 검색</a>
+        </div>
+
+        <div class="card-box" style="grid-column: span 2;">
+            <h2>🏢 지점 및 직원 관리 (Admin)</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <a href="/branches/search" class="btn btn-admin">🏢 지점 상세 정보 조회</a>
+                <a href="/employees/accounts" class="btn btn-admin">👨‍💼 직원별 담당 계좌(실적) 조회</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <p>© 2025 Myongji University Database Project. Created by Yumin Kwon.</p>
+    </div>
+</div>
+
+</body>
+</html>
