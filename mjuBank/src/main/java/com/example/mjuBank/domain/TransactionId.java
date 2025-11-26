@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 class TransactionId implements Serializable {
     //PK 3개이기에 복합키 클래스로 분리
-    private String accountId;
+    private Long accountId;
     private LocalDateTime transactionDate;
     private Integer transactionNo;
 }

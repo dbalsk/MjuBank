@@ -19,7 +19,7 @@ public class Transaction {
 
     @Id
     @Column(name = "account_id", length = 20)
-    private String accountId;
+    private Long accountId;
 
     @Id
     @Column(name = "transaction_date")

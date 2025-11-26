@@ -18,7 +18,7 @@ public class Account {
 
     @Id
     @Column(name = "account_id", length = 20)
-    private String accountId;
+    private Long accountId;
 
     @Column(name = "account_type", length = 20, nullable = false)
     private String accountType;
@@ -42,7 +42,7 @@ public class Account {
     private String depositorEmail;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_ssn", nullable = false) //고객은 필수
+    @JoinColumn(name = "customer_id", nullable = false) //고객은 필수
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,9 +1,6 @@
 package com.example.mjuBank.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +16,9 @@ import java.time.LocalDate;
 public class Customer {
 
     @Id
-    @Column(name = "customer_ssn", length = 14)
-    private String customerSsn;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customer_id", length = 14)
+    private Long customerId;
 
     @Column(name = "customer_name", length = 50, nullable = false)
     private String customerName;

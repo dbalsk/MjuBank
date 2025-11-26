@@ -18,7 +18,7 @@ public class Card {
 
     @Id
     @Column(name = "card_id", length = 20)
-    private String cardId;
+    private Long cardId;
 
     @Column(name = "card_apply_date", nullable = false)
     private LocalDate cardApplyDate;
@@ -33,7 +33,7 @@ public class Card {
     private String cardType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_ssn", nullable = false) //고객 필수
+    @JoinColumn(name = "customer_id", nullable = false) //고객 필수
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)

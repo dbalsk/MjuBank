@@ -1,9 +1,6 @@
 package com.example.mjuBank.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,8 +14,9 @@ import lombok.Setter;
 public class Branch {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "branch_id", length = 10)
-    private String branchId;
+    private Long branchId;
 
     @Column(name = "branch_name", length = 50, nullable = false)
     private String branchName;
