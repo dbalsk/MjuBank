@@ -21,16 +21,20 @@
         <tr>
             <th>주민번호</th>
             <th>이름</th>
+            <th>생년월일</th>
             <th>전화번호</th>
+            <th>이메일</th>
             <th>직업</th>
             <th>주소</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="cust : ${customers}">
-            <td th:text="${cust.customerSsn}"></td>
+            <td th:text="${cust.customerId}"></td>
             <td th:text="${cust.customerName}"></td>
+            <td th:text="${cust.customerBirth}"></td>
             <td th:text="${cust.customerPhone}"></td>
+            <td th:text="${cust.customerEmail}"></td>
             <td th:text="${cust.customerJob}"></td>
             <td th:text="${cust.customerAddress}"></td>
         </tr>
