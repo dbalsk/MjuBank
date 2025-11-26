@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CardRepository extends JpaRepository<Card, Long> {
 
-    // 고객명으로 보유 카드 조회
-    @Query("SELECT c FROM Card c JOIN FETCH c.customer cust JOIN FETCH c.account acc WHERE cust.customerName = :name")
-    List<Card> findCardsByCustomerName(@Param("name") String name);
+    // 고객 id로 보유 카드 조회
+    @Query("SELECT c FROM Card c JOIN FETCH c.customer cust JOIN FETCH c.account acc WHERE cust.customerId = :customerId")
+    List<Card> findCardsByCustomerId(@Param("customerId") Long customerId);
 }
