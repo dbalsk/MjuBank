@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>고객 목록</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+<div style="width: 80%; margin: 0 auto; padding-top: 30px;">
+    <h1>👥 명지은행 고객 관리</h1>
+
+    <button onclick="location.href='/customers/new'" style="padding: 10px;">+ 신규 고객 등록 </button>
+    <button onclick="location.href='/'">메인으로</button>
+
+    <table>
+        <thead>
+        <tr>
+            <th>주민번호</th>
+            <th>이름</th>
+            <th>전화번호</th>
+            <th>직업</th>
+            <th>주소</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cust : ${customers}">
+            <td th:text="${cust.customerSsn}"></td>
+            <td th:text="${cust.customerName}"></td>
+            <td th:text="${cust.customerPhone}"></td>
+            <td th:text="${cust.customerJob}"></td>
+            <td th:text="${cust.customerAddress}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
