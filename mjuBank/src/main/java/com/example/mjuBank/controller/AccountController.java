@@ -72,4 +72,32 @@ public class AccountController {
 
         return "redirect:/accounts";
     }
+
+    // 특정 고객의 계좌 조회 및 정렬
+    @GetMapping("/accounts/search")
+    public String search(@RequestParam(value = "customerId", required = false) Long customerId,
+                         @RequestParam(value = "sort", required = false) String sort,
+                         Model model) {
+
+        // ID가 없으면 빈 화면 리턴
+        if (customerId == null) {
+            return "accounts/search";
+        }
+
+        List<Account> accounts;
+
+        // 정렬 조건에 따라 다른 Repository 메서드 호출
+        if ("date".equals(sort)) {
+            accounts = accountRepository.findAccountsByCustomerIdOrderByDate(customerId);
+        } else if ("balance".equals(sort)) {
+            accounts = accountRepository.findAccountsByCustomerIdOrderByBalance(customerId);
+        } else {
+            accounts = accountRepository.findAccountsByCustomerId(customerId);
+        }
+
+        model.addAttribute("accounts", accounts);
+        model.addAttribute("searchId", customerId);
+
+        return "accounts/search";
+    }
 }

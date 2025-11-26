@@ -11,17 +11,17 @@ import java.util.List;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    // 고객명으로 계좌 조회
-    @Query("SELECT a FROM Account a JOIN FETCH a.customer c WHERE c.customerName = :name")
-    List<Account> findAccountsByCustomerName(@Param("name") String name);
+    // 고객 id로 계좌 조회
+    @Query("SELECT a FROM Account a JOIN FETCH a.customer c WHERE c.customerId = :customerId")
+    List<Account> findAccountsByCustomerId(@Param("customerId") Long customerId);
 
-    // 고객명으로 계좌 조회 (개설일 순 정렬)
-    @Query("SELECT a FROM Account a JOIN a.customer c WHERE c.customerName = :name ORDER BY a.accountOpenDate ASC")
-    List<Account> findAccountsByCustomerNameOrderByDate(@Param("name") String name);
+    // 고객 id로 계좌 조회 (개설일 순 정렬)
+    @Query("SELECT a FROM Account a JOIN a.customer c WHERE c.customerId = :customerId ORDER BY a.accountOpenDate DESC")
+    List<Account> findAccountsByCustomerIdOrderByDate(@Param("customerId") Long customerId);
 
-    // 고객명으로 계좌 조회 (잔액 많은 순 정렬)
-    @Query("SELECT a FROM Account a JOIN a.customer c WHERE c.customerName = :name ORDER BY a.accountBalance DESC")
-    List<Account> findAccountsByCustomerNameOrderByBalance(@Param("name") String name);
+    // 고객 id로 계좌 조회 (잔액 많은 순 정렬)
+    @Query("SELECT a FROM Account a JOIN a.customer c WHERE c.customerId = :customerId ORDER BY a.accountBalance DESC")
+    List<Account> findAccountsByCustomerIdOrderByBalance(@Param("customerId") Long customerId);
 
     // 입금 (잔액 증가)
     @Modifying

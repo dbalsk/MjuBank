@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>계좌 검색 및 정렬</title>
+    <style>
+        /* 스타일은 기존과 동일 */
+        .container { width: 90%; margin: 0 auto; padding-top: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+        .btn-group { margin-top: 15px; margin-bottom: 10px; }
+        .btn { padding: 8px 15px; text-decoration: none; border: 1px solid #ccc; background: #eee; color: black; border-radius: 4px; }
+        .btn:hover { background: #ddd; }
+        .search-box { padding: 20px; background: #f9f9f9; border-radius: 8px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🔍 고객 번호로 계좌 조회</h1>
+
+    <div class="search-box">
+        <form action="/accounts/search" method="get">
+            <label><strong>고객 번호(ID):</strong></label>
+            <input type="number" name="customerId" th:value="${searchId}" placeholder="예: 1" required>
+            <button type="submit" class="btn" style="background-color: #28a745; color: white;">검색</button>
+            <a href="/accounts" class="btn">전체 목록으로</a>
+        </form>
+    </div>
+
+    <div th:if="${accounts != null && !accounts.empty}">
+
+        <div class="btn-group">
+            <span><strong>정렬 기준: </strong></span>
+            <a th:href="@{/accounts/search(customerId=${searchId}, sort='date')}" class="btn"> 개설일순 </a>
+            <a th:href="@{/accounts/search(customerId=${searchId}, sort='balance')}" class="btn"> 잔액순 </a>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>계좌ID</th>
+                <th>고객명 (ID)</th> <th>계좌종류</th>
+                <th>잔액</th>
+                <th>개설일</th>
+                <th>카드여부</th>
+                <th>지점</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="acc : ${accounts}">
+                <td th:text="${acc.accountId}"></td>
+                <td th:text="${acc.customer.customerName} + ' (' + ${acc.customer.customerId} + ')'"></td>
+                <td th:text="${acc.accountType}"></td>
+                <td th:text="${#numbers.formatInteger(acc.accountBalance, 0, 'COMMA')} + '원'" style="font-weight: bold; color: blue;"></td>
+                <td th:text="${acc.accountOpenDate}"></td>
+                <td th:text="${acc.cardApplied}"></td>
+                <td th:text="${acc.branch != null ? acc.branch.branchName : '-'}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:if="${accounts != null && accounts.empty}" style="margin-top: 20px; color: red;">
+        <p>고객번호 <strong><span th:text="${searchId}"></span></strong>번의 계좌 정보를 찾을 수 없습니다.</p>
+    </div>
+</div>
+</body>
+</html>
