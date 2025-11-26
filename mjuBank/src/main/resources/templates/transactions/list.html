@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>거래 내역 조회</title>
+    <style>
+        .container { width: 80%; margin: 0 auto; padding-top: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        th { background-color: #f2f2f2; }
+        .plus { color: blue; font-weight: bold; }
+        .minus { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>거래 내역 상세 조회</h2>
+
+    <div style="background: #eee; padding: 15px; border-radius: 5px;">
+        <h3>계좌번호: <span th:text="${account.accountId}"></span></h3>
+        <p>예금주: <strong th:text="${account.customer.customerName}"></strong> |
+            현재잔액: <strong th:text="${#numbers.formatInteger(account.accountBalance, 0, 'COMMA')} + '원'"></strong></p>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>거래일시</th>
+            <th>구분</th>
+            <th>내용</th>
+            <th>거래금액</th>
+            <th>거래 후 잔액</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tr : ${transactions}">
+            <td th:text="${#temporals.format(tr.transactionDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+
+            <td th:text="${tr.transactionType}"
+                th:class="${tr.transactionType == '입금' ? 'plus' : 'minus'}"></td>
+
+            <td th:text="${tr.transactionDesc}"></td>
+
+            <td th:text="${#numbers.formatInteger(tr.transactionAmount, 0, 'COMMA')} + '원'"
+                th:class="${tr.transactionType == '입금' ? 'plus' : 'minus'}"></td>
+
+            <td th:text="${#numbers.formatInteger(tr.balanceAfter, 0, 'COMMA')} + '원'"></td>
+        </tr>
+
+        <tr th:if="${transactions.isEmpty()}">
+            <td colspan="5">거래 내역이 존재하지 않습니다.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <button onclick="location.href='/accounts'">계좌 목록으로</button>
+</div>
+</body>
+</html>

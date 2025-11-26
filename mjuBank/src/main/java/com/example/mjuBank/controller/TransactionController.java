@@ -1,7 +1,9 @@
 package com.example.mjuBank.controller;
 
 import com.example.mjuBank.domain.Account;
+import com.example.mjuBank.domain.Transaction;
 import com.example.mjuBank.repository.AccountRepository;
+import com.example.mjuBank.repository.TransactionRepository;
 import com.example.mjuBank.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ public class TransactionController {
 
     private final AccountRepository accountRepository;
     private final TransactionService transactionService;
+    private final TransactionRepository transactionRepository;
 
     // 입출금 페이지 이동
     @GetMapping("/transactions/new")
@@ -47,4 +50,19 @@ public class TransactionController {
 
         return "redirect:/accounts";
     }
+
+    // 특정 계좌의 거래내역 조회
+    @GetMapping("/transactions/history")
+    public String history(@RequestParam("accountId") Long accountId, Model model) {
+
+        // 거래내역 조회
+        List<Transaction> transactions = transactionRepository.findHistoryByAccountId(accountId);
+        Account account = accountRepository.findById(accountId).orElseThrow();
+
+        model.addAttribute("transactions", transactions);
+        model.addAttribute("account", account);
+
+        return "transactions/list";
+    }
+
 }

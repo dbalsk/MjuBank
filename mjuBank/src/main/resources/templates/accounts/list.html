@@ -30,7 +30,12 @@
         </thead>
         <tbody>
         <tr th:each="acc : ${accounts}">
-            <td th:text="${acc.accountId}"></td>
+            <td>
+                <a th:href="@{/transactions/history(accountId=${acc.accountId})}"
+                   th:text="${acc.accountId}"
+                   style="color: blue; text-decoration: underline; cursor: pointer;">
+                </a>
+            </td>
             <td th:text="${acc.customer.customerName}"></td>
             <td th:text="${acc.accountType}"></td>
             <td th:text="${#numbers.formatInteger(acc.accountBalance, 0, 'COMMA')} + '원'"></td>
