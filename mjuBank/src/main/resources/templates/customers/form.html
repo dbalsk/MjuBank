@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>고객 등록</title>
+    <style>
+        .container { width: 500px; margin: 0 auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>📝 신규 고객 등록</h2>
+    <form action="/customers/new" method="post">
+        <div class="form-group">
+            <label>주민번호 (PK)</label>
+            <input type="text" name="customerSsn" placeholder="하이픈 포함 (예: 990101-1234567)" required>
+        </div>
+        <div class="form-group">
+            <label>이름</label>
+            <input type="text" name="customerName" required>
+        </div>
+        <div class="form-group">
+            <label>전화번호</label>
+            <input type="text" name="customerPhone" placeholder="010-0000-0000">
+        </div>
+        <div class="form-group">
+            <label>생년월일</label>
+            <input type="date" name="customerBirth">
+        </div>
+        <div class="form-group">
+            <label>주소</label>
+            <input type="text" name="customerAddress">
+        </div>
+        <div class="form-group">
+            <label>직업</label>
+            <input type="text" name="customerJob">
+        </div>
+        <div class="form-group">
+            <label>이메일</label>
+            <input type="email" name="customerEmail">
+        </div>
+        <button type="submit">등록하기</button>
+        <button type="button" onclick="location.href='/customers'">취소</button>
+    </form>
+</div>
+</body>
+</html>
