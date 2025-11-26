@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>지점 상세 조회</title>
+    <style>
+        .container { width: 600px; margin: 0 auto; padding-top: 30px; }
+        .result-box { margin-top: 20px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; }
+        .result-item { margin-bottom: 10px; font-size: 1.1em; }
+        label { font-weight: bold; display: inline-block; width: 100px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>지점 정보 조회</h1>
+
+    <form action="/branches/search" method="get">
+        <label>지점 선택:</label>
+        <select name="branchName" required style="padding: 5px; width: 200px;">
+            <option value="">-- 지점 선택 --</option>
+            <option th:each="br : ${allBranches}"
+                    th:value="${br.branchName}"
+                    th:text="${br.branchName}"
+                    th:selected="${br.branchName == searchName}">
+            </option>
+        </select>
+        <button type="submit" style="padding: 5px 15px; background: #007bff; color: white; border: none;">조회</button>
+        <a href="/"><button type="button">메인으로</button></a>
+    </form>
+
+    <div th:if="${branch != null}" class="result-box">
+        <h3><span th:text="${branch.branchName}"></span> 상세 정보</h3>
+        <hr>
+        <div class="result-item"><label>지점 ID:</label> <span th:text="${branch.branchId}"></span></div>
+        <div class="result-item"><label>지점장:</label> <span th:text="${branch.branchManager}"></span></div>
+        <div class="result-item"><label>전화번호:</label> <span th:text="${branch.branchPhone}"></span></div>
+        <div class="result-item"><label>주소:</label> <span th:text="${branch.branchAddress}"></span></div>
+    </div>
+
+    <div th:if="${searchName != null && branch == null}" style="color: red; margin-top: 20px;">
+        <p><span th:text="${searchName}"></span>에 대한 정보를 찾을 수 없습니다.</p>
+    </div>
+</div>
+</body>
+</html>
